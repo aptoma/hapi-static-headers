@@ -21,7 +21,10 @@
     "type": "git",
     "url": "https://github.com/aptoma/hapi-static-headers"
   },
-  "keywords": ["hapi", "headers"],
+  "keywords": [
+    "hapi",
+    "headers"
+  ],
   "author": "Martin Jonsson <martin@aptoma.com>",
   "license": "MIT",
   "bugs": {
