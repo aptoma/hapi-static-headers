@@ -22,7 +22,9 @@ This module is installed via npm:
 		register: require('@aptoma/hapi-static-headers'),
 		options: {
 			headers: {
-				'X-API-Version': '1.0.0',
+				'X-API-Version': (request) => {
+					return request.pre.apiVersion;
+				},
 				'X-Service': 'The Service'
 			}
 		}

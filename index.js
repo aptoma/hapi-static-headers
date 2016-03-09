@@ -6,7 +6,9 @@ exports.register = function (server, options, next) {
 
 	server.ext('onPreResponse', (request, reply) => {
 		Object.keys(options.headers).forEach((key) => {
-			request.response.header(key, options.headers[key]);
+			const obj = options.headers[key];
+			const value = typeof obj === 'function' ? obj(request) : obj;
+			request.response.header(key, value);
 		});
 		reply.continue();
 	});

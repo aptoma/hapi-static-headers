@@ -22,7 +22,10 @@ describe('Hapi Static Headers', () => {
 			register: require('../'),
 			options: {
 				headers: {
-					foo: 'bar'
+					foo: 'bar',
+					boo: (req) => {
+						return req.headers.test;
+					}
 				}
 			}
 		}, (err) => {
@@ -33,9 +36,14 @@ describe('Hapi Static Headers', () => {
 			server.route({method: 'GET', path: '/', handler: (req, reply) => reply()});
 
 			server
-				.inject('/')
+				.inject({
+					url: '/',
+					method: 'GET',
+					headers: {test: 'foobar'}
+				})
 				.then((res) => {
 					assert(res.headers.foo === 'bar');
+					assert(res.headers.boo === 'foobar');
 					done();
 				});
 		});
