@@ -43,9 +43,9 @@
     "hoek": "^3.0.4"
   },
   "devDependencies": {
-    "@aptoma/eslint-config": "2.0.0",
+    "@aptoma/eslint-config": "^3.0.0",
     "chai": "3.5.0",
-    "eslint": "^1.10.3",
+    "eslint": "^2.3.0",
     "hapi": "^13.0.0",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
