@@ -28,25 +28,21 @@ describe('Hapi Static Headers', () => {
 					}
 				}
 			}
-		}, (err) => {
-			if (err) {
-				return done(err);
-			}
-
-			server.route({method: 'GET', path: '/', handler: (req, reply) => reply()});
-
-			server
-				.inject({
-					url: '/',
-					method: 'GET',
-					headers: {test: 'foobar'}
-				})
-				.then((res) => {
-					assert(res.headers.foo === 'bar');
-					assert(res.headers.boo === 'foobar');
-					done();
-				});
-		});
-
+		})
+			.then(() => {
+				server.route({method: 'GET', path: '/', handler: (req, reply) => reply()});
+				server
+					.inject({
+						url: '/',
+						method: 'GET',
+						headers: {test: 'foobar'}
+					})
+					.then((res) => {
+						assert(res.headers.foo === 'bar');
+						assert(res.headers.boo === 'foobar');
+						done();
+					});
+			})
+			.catch(done);
 	});
 });
