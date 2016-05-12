@@ -8,7 +8,11 @@ exports.register = function (server, options, next) {
 		Object.keys(options.headers).forEach((key) => {
 			const obj = options.headers[key];
 			const value = typeof obj === 'function' ? obj(request) : obj;
-			request.response.header(key, value);
+			if (request.response.isBoom) {
+				request.response.output.headers[key] = value;
+			} else {
+				request.response.header(key, value);
+			}
 		});
 		reply.continue();
 	});
