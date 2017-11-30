@@ -3,24 +3,23 @@
 const Hapi = require('hapi');
 const assert = require('chai').assert;
 const Boom = require('boom');
+const plugin = require('../');
 
 describe('Hapi Static Headers', () => {
-	it('should require object option', (done) => {
+	it('should require object option', async () => {
 		const server = new Hapi.Server({debug: false});
 		try {
-			server.register(require('../'), () => {});
+			await server.register(require('../'));
 		} catch (e) {
 			assert.equal(e.message, 'Option headers must be an object');
-			done();
 		}
 	});
 
-	it('should add headers to response', (done) => {
+	it('should add headers to response', async () => {
 		const server = new Hapi.Server({debug: false});
-		server.connection();
 
-		server.register({
-			register: require('../'),
+		await server.register({
+			plugin,
 			options: {
 				headers: {
 					foo: 'bar',
@@ -29,48 +28,44 @@ describe('Hapi Static Headers', () => {
 					}
 				}
 			}
-		})
-			.then(() => {
-				server.route({method: 'GET', path: '/', handler: (req, reply) => reply()});
-				server
-					.inject({
-						url: '/',
-						method: 'GET',
-						headers: {test: 'foobar'}
-					})
-					.then((res) => {
-						assert(res.headers.foo === 'bar');
-						assert(res.headers.boo === 'foobar');
-						done();
-					});
-			})
-			.catch(done);
+		});
+
+		server.route({method: 'GET', path: '/', handler: () => ''});
+		const res = await server.inject({
+			url: '/',
+			method: 'GET',
+			headers: {test: 'foobar'}
+		});
+
+		assert(res.headers.foo === 'bar');
+		assert(res.headers.boo === 'foobar');
 	});
 
-	it('should add headers to error responses', (done) => {
+	it('should add headers to error responses', async () => {
 		const server = new Hapi.Server({debug: false});
-		server.connection();
 
-		server.register({
-			register: require('../'),
+		await server.register({
+			plugin,
 			options: {
 				headers: {
 					foo: 'bar'
 				}
 			}
-		})
-			.then(() => {
-				server.route({method: 'GET', path: '/', handler: (req, reply) => reply(Boom.badData('foo'))});
-				server
-					.inject({
-						url: '/',
-						method: 'GET'
-					})
-					.then((res) => {
-						assert(res.headers.foo === 'bar');
-						done();
-					});
-			})
-			.catch(done);
+		});
+
+		server.route({
+			method: 'GET',
+			path: '/',
+			handler() {
+				throw Boom.badData('foo');
+			}
+		});
+
+		const res = await server.inject({
+			url: '/',
+			method: 'GET'
+		});
+
+		assert(res.headers.foo === 'bar');
 	});
 });
