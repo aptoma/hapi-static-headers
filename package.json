@@ -15,7 +15,7 @@
     "release:major": "npm run ci && release-it -n -i major"
   },
   "engines": {
-    "node": ">=4.x.x"
+    "node": ">=8.x.x"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,9 @@
   "homepage": "https://github.com/aptoma/hapi-static-headers",
   "eslintConfig": {
     "extends": "@aptoma/eslint-config",
+    "parserOptions": {
+      "ecmaVersion": "2017"
+    },
     "env": {
       "node": true,
       "mocha": true,
@@ -40,16 +43,16 @@
     }
   },
   "dependencies": {
-    "hoek": "^3.0.4"
+    "hoek": "^5.0.2"
   },
   "devDependencies": {
-    "@aptoma/eslint-config": "^4.0.0",
-    "boom": "^3.1.3",
-    "chai": "3.5.0",
-    "eslint": "^2.3.0",
-    "hapi": "^13.0.0",
-    "istanbul": "^0.4.2",
-    "mocha": "^2.4.5",
+    "@aptoma/eslint-config": "^7.0.1",
+    "boom": "^7.1.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.12.1",
+    "hapi": "^17.1.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.1",
     "mocha-only-detector": "^0.1.0",
     "release-it": "^2.3.1"
   }

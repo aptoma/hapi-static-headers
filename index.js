@@ -1,10 +1,10 @@
 'use strict';
 const Hoek = require('hoek');
 
-exports.register = function (server, options, next) {
+function register(server, options) {
 	Hoek.assert(typeof options.headers === 'object', 'Option headers must be an object');
 
-	server.ext('onPreResponse', (request, reply) => {
+	server.ext('onPreResponse', (request) => {
 		Object.keys(options.headers).forEach((key) => {
 			const obj = options.headers[key];
 			const value = typeof obj === 'function' ? obj(request) : obj;
@@ -14,12 +14,12 @@ exports.register = function (server, options, next) {
 				request.response.header(key, value);
 			}
 		});
-		reply.continue();
+
+		return request.response;
 	});
+}
 
-	next();
-};
-
-exports.register.attributes = {
-	name: 'hapi-static-headers'
+module.exports = {
+	name: 'hapi-static-headers',
+	register
 };

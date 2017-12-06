@@ -16,10 +16,9 @@ This module is installed via npm:
 ```javascript
 
 	const server = new Hapi.Server();
-	server.connection();
 
-	server.register({
-		register: require('@aptoma/hapi-static-headers'),
+	await server.register({
+		plugin: require('@aptoma/hapi-static-headers'),
 		options: {
 			headers: {
 				'X-API-Version': (request) => {
@@ -28,6 +27,6 @@ This module is installed via npm:
 				'X-Service': 'The Service'
 			}
 		}
-	}, (err) => {});
+	});
 
 ```
