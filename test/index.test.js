@@ -1,8 +1,8 @@
 'use strict';
 
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 const assert = require('chai').assert;
-const Boom = require('boom');
+const Boom = require('@hapi/boom');
 const plugin = require('../');
 
 describe('Hapi Static Headers', () => {

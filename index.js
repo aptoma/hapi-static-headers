@@ -1,5 +1,5 @@
 'use strict';
-const Hoek = require('hoek');
+const Hoek = require('@hapi/hoek');
 
 function register(server, options) {
 	Hoek.assert(typeof options.headers === 'object', 'Option headers must be an object');
