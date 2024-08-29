@@ -1,6 +1,6 @@
 {
   "name": "@aptoma/hapi-static-headers",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Plugin for adding a defined set of headers to append to all responses.",
   "main": "index.js",
   "scripts": {
