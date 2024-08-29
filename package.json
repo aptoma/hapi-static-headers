@@ -4,11 +4,10 @@
   "description": "Plugin for adding a defined set of headers to append to all responses.",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext '.js' lib test *.js",
+    "lint": "eslint --ext '.js' index.js test *.js",
     "watch": "mocha --watch 'test/**/*.js' 'index.js' --timeout 500",
     "test": "npm run lint && nyc --reporter=text-summary --reporter=lcov mocha --exit 'test/**/*.test.js'",
     "mocha-only-detect": "mocha-only-detector-glob **/*.test.js",
-    "changelog": "git log `git describe --tags --abbrev=0`..HEAD --pretty=format:\"  * %s\"",
     "release": "npm test && release-it -n -i patch",
     "release:minor": "npm test && release-it -n -i minor",
     "release:major": "npm test && release-it -n -i major"
@@ -33,7 +32,7 @@
   "eslintConfig": {
     "extends": "@aptoma/eslint-config",
     "parserOptions": {
-      "ecmaVersion": "2017"
+      "ecmaVersion": 10
     },
     "env": {
       "node": true,
@@ -41,17 +40,15 @@
       "es6": true
     }
   },
-  "dependencies": {
-    "@hapi/hoek": "^8.0.2"
-  },
   "devDependencies": {
-    "@aptoma/eslint-config": "^7.0.1",
-    "@hapi/hapi": "^18.3.1",
-    "chai": "^4.1.2",
-    "eslint": "^4.12.1",
-    "mocha": "^4.0.1",
-    "mocha-only-detector": "^0.1.0",
-    "nyc": "^14.1.1",
-    "release-it": "^2.3.1"
+    "@aptoma/eslint-config": "^8.0.0",
+    "@hapi/boom": "^10.0.1",
+    "@hapi/hapi": "^21.3.10",
+    "chai": "^4.5.0",
+    "eslint": "^8.57.0",
+    "mocha": "^10.7.3",
+    "mocha-only-detector": "^1.0.1",
+    "nyc": "^17.0.0",
+    "release-it": "^17.6.0"
   }
 }

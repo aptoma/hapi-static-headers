@@ -1,8 +1,9 @@
 'use strict';
-const Hoek = require('@hapi/hoek');
 
 function register(server, options) {
-	Hoek.assert(typeof options.headers === 'object', 'Option headers must be an object');
+	if (typeof options.headers !== 'object') {
+		throw new Error('Option headers must be an object');
+	}
 
 	server.ext('onPreResponse', (request) => {
 		Object.keys(options.headers).forEach((key) => {
