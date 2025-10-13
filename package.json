@@ -50,6 +50,6 @@
     "mocha": "^10.7.3",
     "mocha-only-detector": "^1.0.1",
     "nyc": "^17.0.0",
-    "release-it": "^17.6.0"
+    "release-it": "^19.0.5"
   }
 }
